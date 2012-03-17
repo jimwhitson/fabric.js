@@ -286,7 +286,7 @@
           activeGroup = this.getActiveGroup(), 
           corner;
       
-      if (!target.selectable) {
+      if (target && !target.selectable) {
         if(target.clickable) {
           this.fire('mouse:down', { target: target, e: e });
         }
