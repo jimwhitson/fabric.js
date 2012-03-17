@@ -285,6 +285,13 @@
           pointer = this.getPointer(e),
           activeGroup = this.getActiveGroup(), 
           corner;
+      
+      if (!target.selectable) {
+        if(target.clickable) {
+          this.fire('mouse:down', { target: target, e: e });
+        }
+        return;
+      }
 
       if (this._shouldClearSelection(e)) {
 
@@ -363,6 +370,10 @@
         // We won't do that while dragging or rotating in order to improve the
         // performance.
         var target = this.findTarget(e);
+
+        if (target && !target.selectable) {
+            return;
+        }
 
         if (!target) {  
           // image/text was hovered-out from, we remove its borders
@@ -878,7 +889,7 @@
           break;
         }
       }
-      if (target && target.selectable) {
+      if (target) {
         return target;
       }
     },
